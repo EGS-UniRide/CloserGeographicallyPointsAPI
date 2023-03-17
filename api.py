@@ -4,14 +4,13 @@ from math import radians, cos, sin, asin, sqrt
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title="Closer Geographically Points API",
-          description='An API that returns the geographically points inside a customized area.\n'+
+          description='An API that returns the geographically points inside a customized area.\n' +
           'It follows the Haversine formula to calculate the distance between the coordinates points.')
 
 ns = Namespace(
     'points', description='The points that the API will evaluate.')
 api.add_namespace(ns)
 
-# TODO -> add minimum and maximum value
 parser = reqparse.RequestParser()
 parser.add_argument('latitude', required=True, type=float,
                     help='The latitude of the starting point.')
@@ -42,6 +41,12 @@ body = api.model('points', dict(
 class CloseGeoPointsAPI(Resource):
     @api.expect(parser, body)
     def post(self):
+        if (float(request.args.get('latitude')) > 90 or float(request.args.get('latitude')) < -90):
+            abort(400, 'Bad request: there\'s an error on the request latitude parameter.')
+
+        if (float(request.args.get('longitude')) > 180 or float(request.args.get('longitude')) < -180):
+            abort(400, 'Bad request: there\'s an error on the request longitude parameter.')
+
         lst = []
         body_req = json.loads(request.data)
 
