@@ -1,8 +1,10 @@
 from flask import *
 from flask_restx import Api, Resource, Namespace, fields, reqparse
 from math import radians, cos, sin, asin, sqrt
+from flask_cors import CORS
 
 app = Flask(__name__)
+cors = CORS(app)
 api = Api(app, version='1.0', title="Closer Geographically Points API",
           description='An API that returns the geographically points inside a customized area.\n' +
           'It follows the Haversine formula to calculate the distance between the coordinates points.')
