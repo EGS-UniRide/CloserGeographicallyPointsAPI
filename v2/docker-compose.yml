@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+    closer-geo-points-api:
+        image: closer-geo-points-api
+        container_name: closer-geo-points-api
+        build:
+            context: .
+            network: host
+            dockerfile: Dockerfile
+        ports:
+            - 8040:8040
