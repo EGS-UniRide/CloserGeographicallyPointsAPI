@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: closer-geo-point-api
-        image: registry.deti:5000/egs-uniride/closer-geo-point-api
+        image: registry.deti:5000/closergeoapi/closer_geo_point_api:0000
         ports:
           - containerPort: 8040
 ---
